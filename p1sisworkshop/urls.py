@@ -14,6 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from courses.views.professor_create import ProfessorCreate
@@ -21,6 +24,8 @@ from courses.views.courses_create import CoursesCreate
 from courses.views.courses_main import CoursesMain
 from courses.views.signin import Signin
 from courses.views.signup import Signup
+
+# pip install psycopg2-binary
 
 
 urlpatterns = [
@@ -32,3 +37,5 @@ urlpatterns = [
     path('signin/', Signin.as_view(), name="signin"),
     path('signout/', CoursesMain.signout, name="signout"),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
